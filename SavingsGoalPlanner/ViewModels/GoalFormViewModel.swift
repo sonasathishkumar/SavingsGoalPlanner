@@ -27,10 +27,13 @@ final class GoalFormViewModel: ObservableObject {
     func makeGoal() -> Goal? {
         let trimmed = name.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { errorMessage = "Please enter a goal name."; return nil }
-        guard let target = Double(targetText), target > 0 else {
-            errorMessage = "Target amount must be a number greater than 0."
+        guard let target = Double(targetText), target > 0, target <= 1_000_000_000 else {
+            errorMessage = "Target amount must be a number between 1 and 1,000,000,000."
             return nil
-
+        }
+        if !isEditing && targetDate < Calendar.current.startOfDay(for: Date()) {
+            errorMessage = "Target date cannot be in the past."
+            return nil
         }
         errorMessage = nil
 

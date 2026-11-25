@@ -30,7 +30,6 @@ final class GoalViewModel: ObservableObject {
     /// In-progress goal with the highest progress.
     var closestGoal: Goal? {
         goals.filter { $0.status == .inProgress }.max { $0.progress < $1.progress }
-
     }
 
     // MARK: - CRUD

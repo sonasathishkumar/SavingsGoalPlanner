@@ -29,10 +29,11 @@ struct AddContributionView: View {
         .presentationDetents([.medium])
     }
 
-    private func add() {
+    /// Validates the amount, then saves the contribution and closes the sheet.
 
-        guard let amount = Double(amountText), amount > 0 else {
-            errorMessage = "Enter an amount greater than 0."
+    private func add() {
+        guard let amount = Double(amountText), amount > 0, amount <= 1_000_000_000 else {
+            errorMessage = "Enter an amount between 1 and 1,000,000,000."
             return
         }
         vm.addContribution(amount: amount, note: note, to: goalID)

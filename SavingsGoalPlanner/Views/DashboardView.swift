@@ -1,9 +1,10 @@
 import SwiftUI
 
-/// Home screen: summary stats and the goal closest to completion.
+/// Home screen: summary stats, the goal closest to completion, and navigation to other sections.
 struct DashboardView: View {
     @EnvironmentObject var vm: GoalViewModel
     @EnvironmentObject var auth: AuthViewModel
+    @Binding var selectedTab: Int
 
     private let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
@@ -25,6 +26,15 @@ struct DashboardView: View {
                         Text("No goals in progress yet. Add one from the Goals tab!")
                             .foregroundStyle(.secondary)
                     }
+
+                    Button {
+                        selectedTab = 1
+                    } label: {
+
+                        Label("View All Goals", systemImage: "list.bullet")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
                 }
                 .padding()
             }
@@ -36,6 +46,7 @@ struct DashboardView: View {
     }
 }
 
+/// Small statistic tile used on the dashboard.
 struct StatCard: View {
     let title: String
     let value: String
@@ -52,4 +63,5 @@ struct StatCard: View {
         .background(Color(.secondarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 14))
     }
+
 }

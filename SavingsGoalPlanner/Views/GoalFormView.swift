@@ -30,7 +30,6 @@ struct GoalFormView: View {
             }
             .navigationTitle(form.title)
             .navigationBarTitleDisplayMode(.inline)
-
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
                 ToolbarItem(placement: .confirmationAction) {
@@ -40,6 +39,7 @@ struct GoalFormView: View {
         }
     }
 
+    /// Validates the form and saves a new or updated goal, then closes the sheet.
     private func save() {
         guard let goal = form.makeGoal() else { return }
         if form.isEditing { vm.update(goal) } else { vm.add(goal) }
